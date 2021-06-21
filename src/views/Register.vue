@@ -36,6 +36,8 @@
                         </fieldset>
                         <button class="btn btn-lg btn-primary pull-xs-right ng-binding">Sign up</button>
                     </form>
+                    <button @click="IncreaseCounter">Increase counter</button>
+                    {{ count }}
                 </div>
             </div>
         </div>
@@ -46,9 +48,18 @@
 <script>
 export default {
     name: 'McvRegister',
+    computed: {
+        count() {
+            return this.$store.state.count;
+        }
+    },
     methods: {
         onSubmit() {
             console.log('submitted form');
+        },
+        IncreaseCounter() {
+            console.log('IncreaseCounter')
+            this.$store.commit('increment')
         }
     }
 }
