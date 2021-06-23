@@ -1,4 +1,4 @@
-import authApi from '@/api/auth'
+import loginApi from '@/api/login'
 import { setItem } from '@/helpers/PersistanceStorage'
 
 const state = {
@@ -9,44 +9,44 @@ const state = {
 }
 
 export const mutationTypes = {
-    registerStart: '[auth] registerStart',
-    registerSuccess: '[auth] registerSuccess',
-    registerFailure: '[auth] registerFailure'
+    loginStart: '[login] loginStart',
+    loginSuccess: '[login] loginSuccess',
+    loginFailure: '[login] loginFailure'
 }
 
 const mutations = {
-    [mutationTypes.registerStart](state) {
+    [mutationTypes.loginStart](state) {
         state.isSubmitting = true;
         state.validationErrors = null;
     },
-    [mutationTypes.registerSuccess](state, payload) {
+    [mutationTypes.loginSuccess](state, payload) {
         state.isSubmitting = false;
         state.currentUser = payload;
         state.isLoggedIn = true;
     },
-    [mutationTypes.registerFailure](state, payload) {
+    [mutationTypes.loginFailure](state, payload) {
         state.isSubmitting = false;
         state.validationErrors = payload;
     }
 }
 
 export const actionTypes = {
-    register: '[auth] register'
+    login: '[login] login'
 }
 
 const actions = {
-    [actionTypes.register](context, credentials) {
+    [actionTypes.login](context, credentials) {
         return new Promise( resolve => {
-            context.commit(mutationTypes.registerStart)
-            authApi
-            .register(credentials)
+            context.commit(mutationTypes.loginStart)
+            loginApi
+            .login(credentials)
             .then(response => {
-                context.commit(mutationTypes.registerSuccess, response.data.user);
+                context.commit(mutationTypes.loginSuccess, response.data.user);
                 setItem('acessToken', response.data.user.token);
                 resolve(response.data.user)
             })
             .catch(result => {
-                context.commit(mutationTypes.registerFailure, result.response.data.errors)
+                context.commit(mutationTypes.loginFailure, result.response.data.errors)
             })
         })
     }

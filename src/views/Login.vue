@@ -4,21 +4,12 @@
         <div class="container page">
             <div class="row">
                 <div class="col-md-6 offset-md-3 col-xs-12">
-                    <h1 class="text-xs-center ng-binding">Sign up</h1>
+                    <h1 class="text-xs-center ng-binding">Sign in</h1>
                     <p class="text-xs-center">
                         <router-link to="{name: 'login'}">Need an account?</router-link>
                     </p>
                     <mcv-validation-errors v-if="validationErrors" :validation-errors="validationErrors"/>
                     <form @submit.prevent="onSubmit" class="ng-valid ng-valid-email ng-dirty ng-valid-parse">
-
-                        <fieldset class="form-group">
-                            <input 
-                            type="text" 
-                            class="form-control form-control-lg ng-pristine ng-untouched ng-valid ng-empty" 
-                            placeholder="Username"
-                            v-model="username"
-                            />
-                        </fieldset>
 
                         <fieldset class="form-group">
                             <input 
@@ -41,7 +32,7 @@
                             class="btn btn-lg btn-primary pull-xs-right ng-binding" 
                             :disabled="isSubmitting"
                             >
-                            Sign up
+                            Sign in
                             </button>
                     </form>
                 </div>
@@ -53,37 +44,35 @@
 
 <script>
 import McvValidationErrors from '@/components/ValidationErrors'
-import {actionTypes} from '@/store/modules/auth'
+import {actionTypes} from '@/store/modules/login'
 
 export default {
-    name: 'McvRegister',
+    name: 'McvLogin',
     components: {
         McvValidationErrors
     },
     data () {
         return {
             email: '',
-            password: '',
-            username: ''
+            password: ''
         }
     },
     computed: {
         isSubmitting() {
-            return this.$store.state.auth.isSubmitting;
+            return this.$store.state.login.isSubmitting;
         },
         validationErrors() {
-            return this.$store.state.auth.validationErrors;
+            return this.$store.state.login.validationErrors;
         }
     },
     methods: {
         onSubmit() {
             console.log('submitted form');
-            this.$store.dispatch(actionTypes.register, {
-                email: this.email, 
-                username: this.username, 
-                password: this.password
+            this.$store.dispatch(actionTypes.login, {
+                email: this.email,
+                password: this.password,
                 }).then(user => {
-                    console.log('successfully register user, id: ', user);
+                    console.log('successfully login user, id: ', user);
                     this.$router.push({name: 'home'});
                 })
         }
