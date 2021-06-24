@@ -6,7 +6,7 @@
                 <div class="col-md-6 offset-md-3 col-xs-12">
                     <h1 class="text-xs-center ng-binding">Sign up</h1>
                     <p class="text-xs-center">
-                        <router-link to="Login">Have an account?</router-link>
+                        <router-link :to="{name: 'login'}">Have an account?</router-link>
                     </p>
                     <mcv-validation-errors v-if="validationErrors" :validation-errors="validationErrors"/>
                     <form @submit.prevent="onSubmit" class="ng-valid ng-valid-email ng-dirty ng-valid-parse">
