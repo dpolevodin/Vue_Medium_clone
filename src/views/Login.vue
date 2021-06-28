@@ -71,7 +71,7 @@ export default {
                 password: this.password,
                 }).then(user => {
                     console.log('successfully login user, id: ', user);
-                    this.$router.push({name: 'home'});
+                    this.$router.push({name: 'globalFeed'});
                 })
         }
     }
