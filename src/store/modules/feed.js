@@ -20,7 +20,7 @@ export const actionTypes = {
 const mutations = {
     [mutationTypes.getFeedStart](state) {
         state.isLoading = true,
-        state.data = null
+        state.data = null // очень важно, чтобы перетирать старый контент при выборе другой страницы
     },
     [mutationTypes.getFeedSuccess](state, payload) {
         state.isLoading = false,
