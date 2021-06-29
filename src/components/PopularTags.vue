@@ -2,16 +2,17 @@
   <div class="sidebar">
       <mcv-loading v-if="isLoading" />
       <mcv-error-message v-if="error" />
+
       <div v-if="popularTags" class="side-bar">
           <p>Popular tags</p>
           <div class="tag-list">
               <router-link 
-                v-for="PopularTag in popularTags" 
-                :key="PopularTag" 
+                v-for="popularTag in popularTags" 
+                :key="popularTag" 
                 :to="{name: 'tag', params: {slug: popularTag}}"
                 class="tag-default tag-pill ng-binding ng-scope"
                 >
-                  {{PopularTag}}
+                  {{ popularTag }}
               </router-link>
           </div>
       </div>
@@ -34,7 +35,7 @@ export default {
         ...mapState({
             isLoading: state => state.popularTags.isLoading,
             error: state => state.popularTags.error,
-            popularTags: state => state.popularTags.data,
+            popularTags: state => state.popularTags.data
         })
     },
     mounted() {
