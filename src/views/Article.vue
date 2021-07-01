@@ -40,7 +40,7 @@
                           <p>{{article.body}}</p>
                       </div>
                   </div>
-                  <mcv-tag-list />
+                  <mcv-tag-list :tags="article.tagList" />
               </div>
           </div>
       </div>
