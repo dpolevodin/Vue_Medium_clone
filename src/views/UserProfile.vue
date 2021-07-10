@@ -76,7 +76,7 @@ export default {
      apiUrl() {
          const isFavorites = this.$route.path.includes('favorites')
          return isFavorites 
-         ? '/articles?favorites=' + this.userProfileSlug 
+         ? '/articles?favorited=' + this.userProfileSlug
          : '/articles?author=' + this.userProfileSlug
      },
      userProfileSlug() {
@@ -87,16 +87,18 @@ export default {
      }
  },
  mounted() {
-     this.getUserProfile
+     this.getUserProfile()
  },
  watch: {
      userProfileSlug() {
-         this.getUserProfile
+         this.getUserProfile()
      }
  },
  methods: {
      getUserProfile() {
-        this.$store.dispatch(userProfileActionTypes.getUserProfile, {slug: this.userProfileSlug})
+        this.$store.dispatch(userProfileActionTypes.getUserProfile, 
+        {slug: this.userProfileSlug
+        })
      }
  }
 
